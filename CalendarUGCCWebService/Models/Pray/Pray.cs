@@ -7,18 +7,25 @@ namespace CalendarUGCCWebService.Models
 {
     public class Pray
     {
-        public List<PrayItem> PrayList = new List<PrayItem>();        
+        public List<PrayItem> PrayItems = new List<PrayItem>();        
 
         public Pray()
         {
             var comment = "Коментар";
             var header = "Вечірня";
             //testing of prayItem
-            PrayList.Add(new PrayItem(comment, header));
+            PrayItems.Add(new PrayItem(comment, header));
             for (var i = 1; i <= 10; i++)
             {
                 var text = GenerateText(i);
-                PrayList.Add(new PrayItem(text));
+                if (i % 2 == 0)
+                {
+                    PrayItems.Add(new PrayItem(PrayItem.Actors.People, text));
+                }
+                else
+                {
+                    PrayItems.Add(new PrayItem(PrayItem.Actors.Prist, text));
+                }
             }
         }
 

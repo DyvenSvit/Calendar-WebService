@@ -16,7 +16,9 @@ namespace CalendarUGCCWebService.Controllers
             var year = new Year(2015);
 
             var pray = new Pray();
-            string json = JsonConvert.SerializeObject(pray);
+
+            string json = JsonConvert.SerializeObject(pray, Formatting.Indented,
+                            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
 
             return View();
