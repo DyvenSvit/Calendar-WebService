@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CalendarUGCCWebService.Models
+﻿namespace CalendarUGCCWebService.Models.Pray
 {
     public class PrayItem
-    {
-        public string Comment { get; set; }
-
+    {    
         public enum Actors
         {
             Prist,
             People
         };
 
-        public string Actor { get; set; }     
-        public string Header { get; set; }
+        public string Actor { get; set; } 
+    
+        public string AheadText { get; set; }
         public string Text { get; set; }
+        public string AfterText { get; set; }
 
         public PrayItem()
         {
-            
+
         }
-        public PrayItem(string comment, string header)
+        public PrayItem(string afterText, string aheadText)
         {
-            Comment = comment;
-            Header = header;
+            AfterText = afterText;
+            AheadText = aheadText;
         }
         public PrayItem(Actors actor, string text)
         {
@@ -34,9 +29,9 @@ namespace CalendarUGCCWebService.Models
             Actor = actor.ToString();
         }
 
-        public PrayItem(string comment, string actor, string text)
+        public PrayItem(string afterText, string actor, string text)
         {
-            Comment = comment;
+            AfterText = afterText;
             Text = text;
             Actor = actor;
         }

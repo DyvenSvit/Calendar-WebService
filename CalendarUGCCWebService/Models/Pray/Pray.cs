@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
-namespace CalendarUGCCWebService.Models
+namespace CalendarUGCCWebService.Models.Pray
 {
     public class Pray
     {
-        public List<PrayItem> PrayItems = new List<PrayItem>();        
+        public List<List<PrayItem>> PrayItems = new List<List<PrayItem>>();
+        public string Name;
 
         public Pray()
         {
-            var comment = "Коментар";
-            var header = "Вечірня";
+            const string comment = "Коментар";
+            const string header = "Вечірня";
             //testing of prayItem
-            PrayItems.Add(new PrayItem(comment, header));
+            PrayItems.Add(new List<PrayItem> { new PrayItem(comment, header), new PrayItem(comment, header)});
             for (var i = 1; i <= 10; i++)
             {
                 var text = GenerateText(i);
                 if (i % 2 == 0)
                 {
-                    PrayItems.Add(new PrayItem(PrayItem.Actors.People, text));
+                    PrayItems.Add(new List<PrayItem> { new PrayItem(PrayItem.Actors.People, text), new PrayItem(PrayItem.Actors.People, text)});
                 }
                 else
                 {
-                    PrayItems.Add(new PrayItem(PrayItem.Actors.Prist, text));
+                    PrayItems.Add(new List<PrayItem> { new PrayItem(PrayItem.Actors.Prist, text), new PrayItem(PrayItem.Actors.Prist, text)});
                 }
             }
         }
