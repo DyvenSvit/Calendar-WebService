@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using CalendarUGCCWebService.Models.MongoHelpers;
 using CalendarUGCCWebService.Models.Pray;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CalendarUGCCWebService.Controllers
@@ -20,10 +23,14 @@ namespace CalendarUGCCWebService.Controllers
             //var year = new Year(2015);
 
             //var pray = new Pray();
-            var praytype = new PrayType();
+            //var pray = new Pray(day);
             //string json = JsonConvert.SerializeObject(pray, Formatting.Indented,
                             //new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             //var tmp = new Vechirnya();
+            //var ttt =  MongoDb.GetEntityList<PrayType>();
+
+            var r = PrayTypes.List;
+
 
             return View();
         }
