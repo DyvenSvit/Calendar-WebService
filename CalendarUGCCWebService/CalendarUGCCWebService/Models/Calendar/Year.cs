@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
-namespace CalendarUGCCWebService.Models
+namespace CalendarUGCCWebService.Models.Calendar
 {
     public class Year
     {
@@ -16,10 +15,34 @@ namespace CalendarUGCCWebService.Models
         }
 
 
-        public Year(int id)
+        public Year(int id, bool fullYear)
         {
             YearId = id;
+            try
+            { SetHolidays(); }
+            catch (Exception ex)
+            {
+                throw new Exception("Error during defining holidays", ex);
+            }
 
+            if (!fullYear) return;
+            for (var month = 1; month <= 12; month++)
+            {
+                var monthHolidays = Holidays.FindAll(x => x.DayId.Month == month);
+                Months.Add(new Month(YearId, month, monthHolidays));
+            }
+        }
+
+        public Year(DateTime date)
+        {
+            YearId = date.Year;
+
+            SetHolidays();
+
+        }
+
+        private void SetHolidays()
+        {
             Holidays.Add(new Day(new DateTime(), "Easter"));
             Holidays.Add(new Day(new DateTime(YearId, 1, 7), "Rizdvo"));
             Holidays.Add(new Day(new DateTime(YearId, 1, 19), "Jordan"));
@@ -34,37 +57,18 @@ namespace CalendarUGCCWebService.Models
             Holidays.Add(new Day(new DateTime(YearId, 9, 27), "Vozdvyzhennja"));
             Holidays.Add(new Day(new DateTime(YearId, 12, 4), "VvedennjaBogorodyciVHram"));
 
-            try
-            { SetHolidays(); }
-            catch (Exception ex)
-            {
-                throw new Exception("Error during defining holidays", ex);
-            }
-               
-
-            for (int month = 1; month <= 12;  month++)
-            {
-                var MonthHolidays = Holidays.FindAll(x => x.DayId.Month == month);
-                Months.Add(new Month(YearId, month, MonthHolidays));
-            }
-
-        }
-
-        private bool SetHolidays()
-        {
-            var Easter = Holidays.FirstOrDefault(a => a.Holiday == "Easter");
-            if (Easter != null) Easter.DayId = GetEasterDate();
+            var easter = Holidays.FirstOrDefault(a => a.Holiday == "Easter");
+            if (easter == null) return;
+            easter.DayId = GetEasterDate();
             
             var obj = Holidays.FirstOrDefault(a => a.Holiday == "VerbnaNedilja");
-            if (obj != null) obj.DayId = Easter.DayId.AddDays(-7);
+            if (obj != null) obj.DayId = easter.DayId.AddDays(-7);
 
             obj = Holidays.FirstOrDefault(a => a.Holiday == "Voznesinnja");
-            if (obj != null) obj.DayId = Easter.DayId.AddDays(39);
+            if (obj != null) obj.DayId = easter.DayId.AddDays(39);
 
             obj = Holidays.FirstOrDefault(a => a.Holiday == "ZeleniSvjata");
-            if (obj != null) obj.DayId = Easter.DayId.AddDays(49);
-            
-            return true;
+            if (obj != null) obj.DayId = easter.DayId.AddDays(49);
         }
 
         private DateTime GetEasterDate()
@@ -74,17 +78,22 @@ namespace CalendarUGCCWebService.Models
             if ((a+b)<10)
             {
                 var day = 22 + a + b;
-                var EasterDate = new DateTime(YearId, 3, day);
-                EasterDate = EasterDate.AddDays(13);
-                return EasterDate;
+                var easterDate = new DateTime(YearId, 3, day);
+                easterDate = easterDate.AddDays(13);
+                return easterDate;
             }
             else
             {
                 var day = a + b - 9;
-                var EasterDate = new DateTime(YearId, 4, day);
-                EasterDate = EasterDate.AddDays(13);
-                return EasterDate;
+                var easterDate = new DateTime(YearId, 4, day);
+                easterDate = easterDate.AddDays(13);
+                return easterDate;
             }
+        }
+
+        public Year GetPreviousYear(int currentYear)
+        {
+            return new Year(currentYear - 1, false);
         }
     }
 }

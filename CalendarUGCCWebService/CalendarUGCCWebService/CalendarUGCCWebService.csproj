@@ -162,8 +162,10 @@
     <Compile Include="Models\MongoHelpers\MongoDB.cs" />
     <Compile Include="Models\Pray\Pray.cs" />
     <Compile Include="Models\Pray\PrayItem.cs" />
+    <Compile Include="Models\Pray\PraySection.cs" />
     <Compile Include="Models\Pray\PrayType.cs" />
     <Compile Include="Models\Pray\PrayTypes.cs" />
+    <Compile Include="Models\Storage\Storage.cs" />
     <Compile Include="Models\Vechirnya.cs" />
     <Compile Include="Models\Calendar\Year.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,7 +198,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="MongoRepository.chm" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

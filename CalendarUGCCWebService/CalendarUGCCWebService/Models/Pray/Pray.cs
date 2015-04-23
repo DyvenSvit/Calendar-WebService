@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CalendarUGCCWebService.Models.Calendar;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -10,7 +11,7 @@ namespace CalendarUGCCWebService.Models.Pray
     public class Pray
     {
         public PrayType Type;
-        public List<List<PrayItem>> PrayItems = new List<List<PrayItem>>();
+        public List<PraySection> PraySections = new List<PraySection>();
         public string Name;
 
         public Pray()
@@ -18,17 +19,17 @@ namespace CalendarUGCCWebService.Models.Pray
             const string comment = "Коментар";
             const string header = "Вечірня";
             //testing of prayItem
-            PrayItems.Add(new List<PrayItem> { new PrayItem(comment, header), new PrayItem(comment, header)});
+            PraySections.Add(new PraySection());
             for (var i = 1; i <= 10; i++)
             {
                 var text = GenerateText(i);
                 if (i % 2 == 0)
                 {
-                    PrayItems.Add(new List<PrayItem> { new PrayItem(PrayItem.Actors.People, text), new PrayItem(PrayItem.Actors.People, text)});
+                    PraySections.Add(new PraySection());
                 }
                 else
                 {
-                    PrayItems.Add(new List<PrayItem> { new PrayItem(PrayItem.Actors.Prist, text), new PrayItem(PrayItem.Actors.Prist, text)});
+                    PraySections.Add(new PraySection());
                 }
             }
         }
@@ -51,9 +52,9 @@ namespace CalendarUGCCWebService.Models.Pray
         }
 
         //just for testing
-        private string GenerateText(int i)
+        private static string GenerateText(int i)
         {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
             var result = new string(
                 Enumerable.Repeat(chars, i+8)

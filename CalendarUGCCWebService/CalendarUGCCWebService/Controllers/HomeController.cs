@@ -1,15 +1,10 @@
-﻿using CalendarUGCCWebService.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using CalendarUGCCWebService.Models.MongoHelpers;
+using CalendarUGCCWebService.Models.Calendar;
 using CalendarUGCCWebService.Models.Pray;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace CalendarUGCCWebService.Controllers
 {
@@ -19,8 +14,8 @@ namespace CalendarUGCCWebService.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            //var day = new Day();
-            //var year = new Year(2015);
+            var day = new Day(new DateTime(2016,05,01), true);
+            var year = new Year(2016,true);
 
             //var pray = new Pray();
             //var pray = new Pray(day);
@@ -29,7 +24,7 @@ namespace CalendarUGCCWebService.Controllers
             //var tmp = new Vechirnya();
             //var ttt =  MongoDb.GetEntityList<PrayType>();
 
-            var r = PrayTypes.List;
+            //var r = PrayTypes.List;
 
 
             return View();

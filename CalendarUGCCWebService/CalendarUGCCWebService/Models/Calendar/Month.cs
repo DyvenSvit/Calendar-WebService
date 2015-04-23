@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
-namespace CalendarUGCCWebService.Models
+namespace CalendarUGCCWebService.Models.Calendar
 {
     public class Month
     {
@@ -25,11 +24,11 @@ namespace CalendarUGCCWebService.Models
                 if (monthHolidays.Any<Day>(x => x.DayId.Day == day))
                 {
                     var DayDate = new DateTime(yearId, monthId, day);
-                    Days.Add(new Day(DayDate, monthHolidays.Find(x => x.DayId == DayDate).Holiday.ToString()));
+                    Days.Add(new Day(DayDate, monthHolidays.Find(x => x.DayId == DayDate).Holiday));
                 }
                 else
                 {
-                    Days.Add(new Day(new DateTime(yearId, monthId, day)));
+                    Days.Add(new Day(new DateTime(yearId, monthId, day), false));
                 }
             }
         }
