@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Web.Helpers;
 
 namespace CalendarUGCCWebService.Models.Calendar
 {
@@ -49,7 +47,7 @@ namespace CalendarUGCCWebService.Models.Calendar
         {
             var currentYear = new Year(day);
             Year year;
-            if (DayId < currentYear.Holidays.FirstOrDefault(a => a.Holiday == "Easter").DayId)
+            if (DayId < currentYear.Holidays.List.FirstOrDefault(a => a.ShortName == "Easter").Date)
             {
                 year = currentYear.GetPreviousYear(currentYear.YearId);
             }
@@ -57,13 +55,13 @@ namespace CalendarUGCCWebService.Models.Calendar
             {
                 year = currentYear;
             }
-            var easter = year.Holidays.FirstOrDefault(a => a.Holiday == "Easter");
-            var zelSvyata = year.Holidays.FirstOrDefault(a => a.Holiday == "ZeleniSvjata");
+            var easter = year.Holidays.List.FirstOrDefault(a => a.ShortName == "Easter");
+            var zelSvyata = year.Holidays.List.FirstOrDefault(a => a.ShortName == "ZeleniSvjata");
             if (zelSvyata != null)
             {      
-              if (day >= easter.DayId && day < zelSvyata.DayId.AddDays(7))
+              if (day >= easter.Date && day < zelSvyata.Date.AddDays(7))
                 {
-                    var diff = day - easter.DayId;
+                    var diff = day - easter.Date;
                     if (diff.Days <= new TimeSpan(7, 0, 0, 0).Days)
                     {
                         if (diff.Days == 6){Glas = diff.Days + 1;}
@@ -77,7 +75,7 @@ namespace CalendarUGCCWebService.Models.Calendar
                 }
                 else
                 {
-                    var daysFromZelSvyata = day - zelSvyata.DayId;
+                    var daysFromZelSvyata = day - zelSvyata.Date;
                     var weekFromZelSvyata = daysFromZelSvyata.Days / 7;
                     Glas = weekFromZelSvyata % 8;
                 }

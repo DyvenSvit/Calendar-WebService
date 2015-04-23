@@ -14,17 +14,17 @@ namespace CalendarUGCCWebService.Models.Calendar
         {
 
         }
-        public Month(int yearId, int monthId, List<Day> monthHolidays)
+        public Month(int yearId, int monthId, List<Holiday> monthHolidays)
         {
             MonthId = monthId;
             YearId = yearId;
             var days = DateTime.DaysInMonth(yearId, monthId);
             for (int day = 1; day <= days; day++ )
             {
-                if (monthHolidays.Any<Day>(x => x.DayId.Day == day))
+                if (monthHolidays.Any<Holiday>(x => x.Date.Day == day))
                 {
-                    var DayDate = new DateTime(yearId, monthId, day);
-                    Days.Add(new Day(DayDate, monthHolidays.Find(x => x.DayId == DayDate).Holiday));
+                    var dayDate = new DateTime(yearId, monthId, day);
+                    Days.Add(new Day(dayDate, monthHolidays.Find(x => x.Date == dayDate).ShortName));
                 }
                 else
                 {

@@ -14,7 +14,7 @@ namespace CalendarUGCCWebService.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            var day = new Day(new DateTime(2016,05,01), true);
+            //var day = new Day(new DateTime(2016,05,01), true);
             var year = new Year(2016,true);
 
             //var pray = new Pray();

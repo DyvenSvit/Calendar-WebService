@@ -157,6 +157,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Calendar\Day.cs" />
+    <Compile Include="Models\Calendar\Holiday.cs" />
+    <Compile Include="Models\Calendar\Holidays.cs" />
     <Compile Include="Models\Calendar\Month.cs" />
     <Compile Include="Models\MongoHelpers\Entity.cs" />
     <Compile Include="Models\MongoHelpers\MongoDB.cs" />
